@@ -13,9 +13,20 @@
 }
 
 @layer base {
-  body {
-    @apply font-sans bg-donut-warm text-donut-dark;
+  html {
+    scroll-behavior: smooth;
   }
+  body {
+    @apply font-sans bg-donut-warm text-donut-dark antialiased;
+  }
+}
+
+.glass-card {
+  @apply bg-white/70 backdrop-blur-md border border-white/40 shadow-xl;
+}
+
+.text-gradient {
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-donut-dark to-donut-crust;
 }
 
 .perspective-1000 {
