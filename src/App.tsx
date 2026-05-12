@@ -158,15 +158,25 @@ function SocialCTA() {
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [scrollProgress, setScrollProgress] = useState(0);
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 20);
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+      
+      const totalScroll = document.documentElement.scrollHeight - window.innerHeight;
+      const currentProgress = (window.scrollY / totalScroll) * 100;
+      setScrollProgress(currentProgress);
+    };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'bg-donut-warm/90 backdrop-blur-md shadow-sm py-2' : 'bg-transparent py-4'}`}>
+    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled ? 'bg-donut-warm/80 backdrop-blur-lg shadow-sm py-2' : 'bg-transparent py-4'}`}>
+      {/* Progress Bar */}
+      <div className="absolute top-0 left-0 h-[3px] bg-donut-crust transition-all duration-100 ease-out" style={{ width: `${scrollProgress}%` }} />
+      
       <div className="max-w-7xl mx-auto px-4 flex justify-between items-center">
         <div className="flex items-center gap-3">
           <img src={LOGO_URL} alt="Logo" className="w-10 h-10 rounded-full border-2 border-donut-dough" />
@@ -344,10 +354,13 @@ function Features() {
                 hidden: { opacity: 0, y: 30 },
                 visible: { opacity: 1, y: 0 }
               }}
-              whileHover={{ y: -10, boxShadow: "0 20px 25px -5px rgb(0 0 0 / 0.1)" }}
-              className="p-8 rounded-3xl bg-donut-warm border border-donut-dough/10 transition-all group"
+              whileHover={{ y: -10, boxShadow: "0 25px 50px -12px rgb(0 0 0 / 0.15)" }}
+              className="p-10 rounded-[2.5rem] bg-white/60 backdrop-blur-sm border border-white/50 transition-all group relative overflow-hidden"
             >
-              <div className="text-5xl mb-6 group-hover:scale-110 transition-transform">{f.icon}</div>
+              <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
+                <span className="text-8xl select-none">{f.icon}</span>
+              </div>
+              <div className="text-5xl mb-6 group-hover:scale-110 transition-transform origin-left">{f.icon}</div>
               <h3 className="font-display text-2xl font-bold mb-4">{f.title}</h3>
               <p className="text-donut-dark/70 leading-relaxed text-lg">{f.desc}</p>
             </motion.div>
@@ -615,7 +628,27 @@ function Footer() {
 
 export default function App() {
   return (
-    <div className="min-h-screen selection:bg-donut-dough selection:text-donut-dark">
+    <div className="min-h-screen selection:bg-donut-dough selection:text-donut-dark relative overflow-hidden">
+      {/* Subtle Background Blobs */}
+      <div className="fixed inset-0 -z-10 pointer-events-none">
+        <motion.div 
+          animate={{ 
+            x: [0, 100, 0],
+            y: [0, 50, 0],
+          }}
+          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+          className="absolute top-1/4 -left-20 w-96 h-96 bg-donut-dough/10 rounded-full blur-[100px]"
+        />
+        <motion.div 
+          animate={{ 
+            x: [0, -100, 0],
+            y: [0, -50, 0],
+          }}
+          transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+          className="absolute bottom-1/4 -right-20 w-[500px] h-[500px] bg-donut-crust/5 rounded-full blur-[120px]"
+        />
+      </div>
+
       <Navbar />
       <main>
         <Hero />
