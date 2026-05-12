@@ -175,7 +175,7 @@ function Navbar() {
   return (
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled ? 'bg-donut-warm/80 backdrop-blur-lg shadow-sm py-2' : 'bg-transparent py-4'}`}>
       {/* Progress Bar */}
-      <div className="absolute top-0 left-0 h-[3px] bg-donut-crust transition-all duration-100 ease-out" style={{ width: `${scrollProgress}%` }} />
+      <div className="absolute top-0 left-0 h-[3px] bg-donut-crust transition-all duration-300 ease-out" style={{ width: `${scrollProgress}%` }} />
       
       <div className="max-w-7xl mx-auto px-4 flex justify-between items-center">
         <div className="flex items-center gap-3">
@@ -281,7 +281,7 @@ function Hero() {
             <img 
               src={IMAGES[2]} 
               alt="Świeży pączek" 
-              className="w-full h-full object-cover scale-110 hover:scale-100 transition-transform duration-1000"
+              className="w-full h-full object-cover"
             />
           </motion.div>
           {/* Decorative badges */}
@@ -400,10 +400,11 @@ function Gallery() {
             <motion.img
               key={index}
               src={GALLERY_IMAGES[index]}
-              initial={{ opacity: 0, scale: 1.1 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.9 }}
-              transition={{ duration: 0.5 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              loading="lazy"
               className="w-full h-full object-cover"
             />
           </AnimatePresence>
@@ -633,19 +634,19 @@ export default function App() {
       <div className="fixed inset-0 -z-10 pointer-events-none">
         <motion.div 
           animate={{ 
-            x: [0, 100, 0],
-            y: [0, 50, 0],
+            x: [0, 50, 0],
+            y: [0, 25, 0],
           }}
-          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-          className="absolute top-1/4 -left-20 w-96 h-96 bg-donut-dough/10 rounded-full blur-[100px]"
+          transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+          className="absolute top-1/4 -left-20 w-96 h-96 bg-donut-dough/5 rounded-full blur-[60px]"
         />
         <motion.div 
           animate={{ 
-            x: [0, -100, 0],
-            y: [0, -50, 0],
+            x: [0, -50, 0],
+            y: [0, -25, 0],
           }}
-          transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-          className="absolute bottom-1/4 -right-20 w-[500px] h-[500px] bg-donut-crust/5 rounded-full blur-[120px]"
+          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+          className="absolute bottom-1/4 -right-20 w-[500px] h-[500px] bg-donut-crust/5 rounded-full blur-[80px]"
         />
       </div>
 
